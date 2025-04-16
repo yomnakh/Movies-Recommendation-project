@@ -27,7 +27,7 @@ export const login = createAsyncThunk(
     async ({ email, password }: { email: string; password: string }) => {
         try {
             const response = await authService.login(email, password);
-            toast.success('Successfully logged in!');
+            // toast.success('Successfully logged in!');
             return response;
         } catch (error) {
             toast.error('Login failed. Please check your credentials.');

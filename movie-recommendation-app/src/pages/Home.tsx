@@ -9,9 +9,11 @@ import MovieCard from '../components/MovieCard';
 import HeroSection from '../components/HeroSection';
 import FeaturesSection from '../components/FeaturesSection';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate(); // Add this
     const { trending, loading, error } = useSelector((state: RootState) => state.movies);
     const { isAuthenticated } = useSelector((state: RootState) => state.auth);
 
@@ -39,7 +41,7 @@ const Home = () => {
             
             <section className="trending-section py-5">
                 <Container>
-                    <h2 className="text-center mb-4">Trending Movies</h2>
+                    <h2 className="text-center mb-4 trending-title">Trending Movies</h2>
                     {loading ? (
                         <div className="text-center">
                             <div className="spinner-border text-primary" role="status">
@@ -64,7 +66,7 @@ const Home = () => {
                                     <Button 
                                         variant="primary" 
                                         size="lg"
-                                        onClick={() => window.location.href = '/movies'}
+                                        onClick={() => navigate('/movies')} // Replace window.location.href
                                     >
                                         View All Movies
                                     </Button>
@@ -72,7 +74,7 @@ const Home = () => {
                                     <Button 
                                         variant="primary" 
                                         size="lg"
-                                        onClick={() => window.location.href = '/login'}
+                                        onClick={() => navigate('/login')} // Replace window.location.href
                                     >
                                         Login to View All Movies
                                     </Button>

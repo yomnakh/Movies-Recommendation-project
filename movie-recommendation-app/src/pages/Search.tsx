@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
-import { Row, Col, Container, Pagination } from 'react-bootstrap';
+import { Row, Col, Container, Pagination, Spinner } from 'react-bootstrap';
 import { AppDispatch, RootState } from '../store';
 import { searchMoviesAsync, setCurrentPage } from '../store/slices/moviesSlice';
 import MovieCard from '../components/MovieCard';
@@ -11,7 +11,7 @@ const Search = () => {
     const [searchParams] = useSearchParams();
     const query = searchParams.get('q') || '';
     
-    const { filtered: searchResults, loading, error, currentPage, totalPages } = 
+    const { searchResults, loading, error, currentPage, totalPages } = 
         useSelector((state: RootState) => state.movies);
 
     useEffect(() => {
@@ -22,18 +22,39 @@ const Search = () => {
 
     const handlePageChange = (page: number) => {
         dispatch(setCurrentPage(page));
+        window.scrollTo(0, 0);
     };
 
-    if (loading) return <div className="text-center mt-5">Loading...</div>;
-    if (error) return <div className="text-center mt-5 text-danger">{error}</div>;
+    // Loading state
+    if (loading) {
+        return (
+            <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: '60vh' }}>
+                <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </Spinner>
+            </Container>
+        );
+    }
+
+    // Error state
+    if (error) {
+        return (
+            <Container className="text-center mt-5">
+                <div className="alert alert-danger" role="alert">
+                    {error}
+                </div>
+            </Container>
+        );
+    }
 
     return (
-        <Container>
+        <Container className="py-5 mt-4">
             <h1 className="mb-4">Search Results for "{query}"</h1>
             
-            {searchResults.length === 0 ? (
+            {!searchResults || searchResults.length === 0 ? (
                 <div className="text-center mt-5">
                     <h3>No movies found matching your search.</h3>
+                    <p className="text-muted">Try searching with different keywords</p>
                 </div>
             ) : (
                 <>
@@ -90,4 +111,4 @@ const Search = () => {
     );
 };
 
-export default Search; 
+export default Search;

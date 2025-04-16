@@ -7,7 +7,7 @@ const Watchlist = () => {
     const { watchlist } = useSelector((state: RootState) => state.userPreferences);
 
     return (
-        <Container>
+        <Container className="py-5 mt-4">
             <h1 className="mb-4">My Watchlist</h1>
             
             {watchlist.length === 0 ? (
@@ -30,4 +30,4 @@ const Watchlist = () => {
     );
 };
 
-export default Watchlist; 
+export default Watchlist;

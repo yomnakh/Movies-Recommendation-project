@@ -58,7 +58,7 @@ const MovieDetails = () => {
     }
 
     return (
-        <Container className="movie-details-container">
+        <Container className="movie-details-container py-5">
             <div className="movie-backdrop" style={{
                 backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`
             }}>

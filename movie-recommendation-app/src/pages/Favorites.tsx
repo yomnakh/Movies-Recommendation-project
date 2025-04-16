@@ -7,7 +7,7 @@ const Favorites = () => {
     const { favorites } = useSelector((state: RootState) => state.userPreferences);
 
     return (
-        <Container>
+        <Container className="py-5 mt-4">
             <h1 className="mb-4">My Favorites</h1>
             
             {favorites.length === 0 ? (
@@ -30,4 +30,4 @@ const Favorites = () => {
     );
 };
 
-export default Favorites; 
+export default Favorites;

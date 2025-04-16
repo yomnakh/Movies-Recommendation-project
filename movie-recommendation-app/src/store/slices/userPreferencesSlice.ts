@@ -9,7 +9,7 @@ interface UserPreferencesState {
 
 function loadPreferences(): UserPreferencesState {
     const savedPreferences = localStorage.getItem('userPreferences');
-    const savedTheme = localStorage.getItem('theme') || 'light';
+    const savedTheme = localStorage.getItem('theme') || 'dark';
     
     if (savedPreferences) {
         const preferences = JSON.parse(savedPreferences);
@@ -22,7 +22,7 @@ function loadPreferences(): UserPreferencesState {
     return {
         favorites: [],
         watchlist: [],
-        theme: 'light'
+        theme: 'dark'
     };
 }
 
@@ -60,10 +60,10 @@ const userPreferencesSlice = createSlice({
         clearPreferences: (state) => {
             state.favorites = [];
             state.watchlist = [];
-            state.theme = 'light'; // Reset to light theme
+            state.theme = 'dark'; // Reset to dark theme
             localStorage.removeItem('userPreferences');
-            localStorage.setItem('theme', 'light');
-            document.documentElement.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'dark');
+            document.documentElement.setAttribute('data-theme', 'dark');
         }
     }
 });

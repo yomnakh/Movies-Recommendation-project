@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { login } from "../store/slices/authSlice";
+import { login as reduxLogin } from "../store/slices/authSlice";
 import { toast } from "react-toastify";
 import { AppDispatch } from "../store";
+import { useAuth } from "../context/AuthContext";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import generated from "../../public/generated.jpg"
+import generated from "../../public/generated.jpg";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -14,13 +15,19 @@ const Login = () => {
 
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const { login: authLogin, theme } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      await dispatch(login({ email, password })).unwrap();
-      navigate("/movies");
+      // Call Redux login first to maintain compatibility with other parts of the app
+      const userData = await dispatch(reduxLogin({ email, password })).unwrap();
+      
+      // Now also update our auth context
+      authLogin(userData);
+      
+      navigate("/home");
       toast.success("Successfully logged in!");
     } catch (err) {
       toast.error("Failed to login. Please check your credentials.");
@@ -30,28 +37,28 @@ const Login = () => {
   };
 
   return (
-    <div className="container-fluid vh-100 d-flex align-items-center justify-content-center bg-light">
+    <div className={`container-fluid vh-100 d-flex align-items-center justify-content-center auth-page-bg`}>
       <div className="row w-100">
         {/* Illustration Section */}
         <div className="col-md-6 d-none d-md-flex align-items-center justify-content-center">
           <img
             src={generated}
             alt="Login Illustration"
-            className="img-fluid"
-            style={{ maxWidth: '80%' }}
+            className="img-fluid rounded shadow"
+            style={{ maxWidth: "80%" }}
           />
         </div>
-
+  
         {/* Form Section */}
         <div className="col-md-6 d-flex align-items-center justify-content-center">
-          <div className="card shadow-lg p-4" style={{ maxWidth: '400px', width: '100%' }}>
+          <div className="card form-card shadow-lg p-4" style={{ maxWidth: "400px", width: "100%" }}>
             <h3 className="text-center mb-3">Login</h3>
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
-                <label htmlFor="email" className="form-label">Email</label>
+                <label htmlFor="email" className={`form-label ${theme === 'dark' ? 'text-light' : 'text-dark'}`}>Email</label>
                 <input
                   type="email"
-                  className="form-control"
+                  className={`form-control ${theme === 'dark' ? 'bg-dark text-light border-secondary' : ''}`}
                   id="email"
                   placeholder="Enter your email"
                   value={email}
@@ -60,10 +67,10 @@ const Login = () => {
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="password" className="form-label">Password</label>
+                <label htmlFor="password" className={`form-label ${theme === 'dark' ? 'text-light' : 'text-dark'}`}>Password</label>
                 <input
                   type="password"
-                  className="form-control"
+                  className={`form-control ${theme === 'dark' ? 'bg-dark text-light border-secondary' : ''}`}
                   id="password"
                   placeholder="Enter your password"
                   value={password}
@@ -83,8 +90,14 @@ const Login = () => {
               </button>
             </form>
             <p className="text-center mt-3">
-              Don't have an account? <Link to="/register" className="text-decoration-none text-primary">Register</Link>
-            </p>
+      Don't have an account?{' '}
+      <Link 
+        to="/register" 
+        className="text-decoration-none text-primary"
+      >
+        Register
+      </Link>
+    </p>
           </div>
         </div>
       </div>

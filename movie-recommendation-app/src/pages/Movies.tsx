@@ -140,87 +140,170 @@ const Movies = () => {
         return items;
     };
 
-    return (
-        <Container className="movies-page py-5">
-            <h1 className="text-center mb-4">Movies</h1>
+//     return (
+//         <Container className="movies-page py-5">
+//             <h1 className="text-center mb-4">Movies</h1>
             
-            <Row className="mb-4">
-                <Col md={6}>
-                    <Form.Group>
-                        <Form.Label>Sort By</Form.Label>
-                        <Form.Select 
-                            value={sortBy} 
-                            onChange={handleSortChange}
-                            aria-label="Sort movies by"
-                        >
-                            <option value="popularity">Popularity</option>
-                            <option value="rating">Rating</option>
-                            <option value="date">Release Date</option>
-                        </Form.Select>
-                    </Form.Group>
-                </Col>
-                <Col md={6}>
-                    <Form.Group>
-                        <Form.Label>Filter by Genre</Form.Label>
-                        <Form.Select 
-                            value={filterGenre} 
-                            onChange={handleFilterChange}
-                            aria-label="Filter movies by genre"
-                        >
-                            <option value="">All Genres</option>
-                            <option value="28">Action</option>
-                            <option value="12">Adventure</option>
-                            <option value="16">Animation</option>
-                            <option value="35">Comedy</option>
-                            <option value="80">Crime</option>
-                            <option value="99">Documentary</option>
-                            <option value="18">Drama</option>
-                            <option value="10751">Family</option>
-                            <option value="14">Fantasy</option>
-                            <option value="36">History</option>
-                            <option value="27">Horror</option>
-                            <option value="10402">Music</option>
-                            <option value="9648">Mystery</option>
-                            <option value="10749">Romance</option>
-                            <option value="878">Science Fiction</option>
-                            <option value="10770">TV Movie</option>
-                            <option value="53">Thriller</option>
-                            <option value="10752">War</option>
-                            <option value="37">Western</option>
-                        </Form.Select>
-                    </Form.Group>
-                </Col>
-            </Row>
+//             <Row className="mb-4">
+//                 <Col md={6}>
+//                     <Form.Group>
+//                         <Form.Label>Sort By</Form.Label>
+//                         <Form.Select 
+//                             value={sortBy} 
+//                             onChange={handleSortChange}
+//                             aria-label="Sort movies by"
+//                         >
+//                             <option value="popularity">Popularity</option>
+//                             <option value="rating">Rating</option>
+//                             <option value="date">Release Date</option>
+//                         </Form.Select>
+//                     </Form.Group>
+//                 </Col>
+//                 <Col md={6}>
+//                     <Form.Group>
+//                         <Form.Label>Filter by Genre</Form.Label>
+//                         <Form.Select 
+//                             value={filterGenre} 
+//                             onChange={handleFilterChange}
+//                             aria-label="Filter movies by genre"
+//                         >
+//                             <option value="">All Genres</option>
+//                             <option value="28">Action</option>
+//                             <option value="12">Adventure</option>
+//                             <option value="16">Animation</option>
+//                             <option value="35">Comedy</option>
+//                             <option value="80">Crime</option>
+//                             <option value="99">Documentary</option>
+//                             <option value="18">Drama</option>
+//                             <option value="10751">Family</option>
+//                             <option value="14">Fantasy</option>
+//                             <option value="36">History</option>
+//                             <option value="27">Horror</option>
+//                             <option value="10402">Music</option>
+//                             <option value="9648">Mystery</option>
+//                             <option value="10749">Romance</option>
+//                             <option value="878">Science Fiction</option>
+//                             <option value="10770">TV Movie</option>
+//                             <option value="53">Thriller</option>
+//                             <option value="10752">War</option>
+//                             <option value="37">Western</option>
+//                         </Form.Select>
+//                     </Form.Group>
+//                 </Col>
+//             </Row>
 
-            {loading ? (
-                <div className="text-center">
-                    <Spinner animation="border" role="status">
-                        <span className="visually-hidden">Loading...</span>
-                    </Spinner>
-                </div>
-            ) : error ? (
-                <div className="text-center text-danger">
-                    <p>{error}</p>
-                </div>
-            ) : (
-                <>
-                    <Row xs={1} sm={2} md={3} lg={4} className="g-4">
-                        {currentMovies.map(movie => (
-                            <Col key={movie.id}>
-                                <MovieCard movie={movie} />
-                            </Col>
-                        ))}
-                    </Row>
+//             {loading ? (
+//                 <div className="text-center">
+//                     <Spinner animation="border" role="status">
+//                         <span className="visually-hidden">Loading...</span>
+//                     </Spinner>
+//                 </div>
+//             ) : error ? (
+//                 <div className="text-center text-danger">
+//                     <p>{error}</p>
+//                 </div>
+//             ) : (
+//                 <>
+//                     <Row xs={1} sm={2} md={3} lg={4} className="g-4">
+//                         {currentMovies.map(movie => (
+//                             <Col key={movie.id}>
+//                                 <MovieCard movie={movie} />
+//                             </Col>
+//                         ))}
+//                     </Row>
                     
-                    {totalPages > 1 && (
-                        <div className="pagination-container">
-                            <Pagination>{renderPaginationItems()}</Pagination>
-                        </div>
-                    )}
-                </>
-            )}
-        </Container>
-    );
-};
+//                     {totalPages > 1 && (
+//                         <div className="pagination-container">
+//                             <Pagination>{renderPaginationItems()}</Pagination>
+//                         </div>
+//                     )}
+//                 </>
+//             )}
+//         </Container>
+//     );
+// };
+
+return (
+    <Container className="movies-page py-5 mt-5 custom-margin">
+        <h1 className="text-center mb-4">Movies</h1>
+        
+        <Row className="mb-4">
+            <Col md={6}>
+                <Form.Group>
+                    <Form.Label>Sort By</Form.Label>
+                    <Form.Select 
+                        value={sortBy} 
+                        onChange={handleSortChange}
+                        aria-label="Sort movies by"
+                    >
+                        <option value="popularity">Popularity</option>
+                        <option value="rating">Rating</option>
+                        <option value="date">Release Date</option>
+                    </Form.Select>
+                </Form.Group>
+            </Col>
+            <Col md={6}>
+                <Form.Group>
+                    <Form.Label>Filter by Genre</Form.Label>
+                    <Form.Select 
+                        value={filterGenre} 
+                        onChange={handleFilterChange}
+                        aria-label="Filter movies by genre"
+                    >
+                        <option value="">All Genres</option>
+                        <option value="28">Action</option>
+                        <option value="12">Adventure</option>
+                        <option value="16">Animation</option>
+                        <option value="35">Comedy</option>
+                        <option value="80">Crime</option>
+                        <option value="99">Documentary</option>
+                        <option value="18">Drama</option>
+                        <option value="10751">Family</option>
+                        <option value="14">Fantasy</option>
+                        <option value="36">History</option>
+                        <option value="27">Horror</option>
+                        <option value="10402">Music</option>
+                        <option value="9648">Mystery</option>
+                        <option value="10749">Romance</option>
+                        <option value="878">Science Fiction</option>
+                        <option value="10770">TV Movie</option>
+                        <option value="53">Thriller</option>
+                        <option value="10752">War</option>
+                        <option value="37">Western</option>
+                    </Form.Select>
+                </Form.Group>
+            </Col>
+        </Row>
+
+        {loading ? (
+            <div className="text-center">
+                <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </Spinner>
+            </div>
+        ) : error ? (
+            <div className="text-center text-danger">
+                <p>{error}</p>
+            </div>
+        ) : (
+            <>
+                <Row xs={1} sm={2} md={3} lg={4} className="g-4">
+                    {currentMovies.map(movie => (
+                        <Col key={movie.id}>
+                            <MovieCard movie={movie} />
+                        </Col>
+                    ))}
+                </Row>
+                
+                {totalPages > 1 && (
+                    <div className="pagination-container">
+                        <Pagination>{renderPaginationItems()}</Pagination>
+                    </div>
+                )}
+            </>
+        )}
+    </Container>
+);
+}
 
 export default Movies; 

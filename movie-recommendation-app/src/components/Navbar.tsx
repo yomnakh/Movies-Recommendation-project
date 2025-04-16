@@ -15,6 +15,7 @@ const Navbar = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { isAuthenticated, user } = useSelector((state: RootState) => state.auth);
     const userPreferences = useSelector((state: RootState) => state.userPreferences);
+    const { theme } = useSelector((state: RootState) => state.userPreferences);
     
     // Add null checks and default to empty arrays
     const favorites = userPreferences?.favorites || [];
@@ -80,7 +81,7 @@ const Navbar = () => {
                         {isAuthenticated ? (
                             <NavDropdown 
                                 title={
-                                    <span className="text-light ms-3">
+                                    <span className={`ms-3 ${theme === 'dark' ? 'text-light' : 'text-dark'}`}>
                                         <FontAwesomeIcon icon={faUser} className="me-1" />
                                         {user?.username}
                                     </span>
@@ -94,8 +95,8 @@ const Navbar = () => {
                             </NavDropdown>
                         ) : (
                             <Nav>
-                                <Nav.Link as={Link} to="/login" className="text-light">Login</Nav.Link>
-                                <Nav.Link as={Link} to="/register" className="text-light">Register</Nav.Link>
+                                <Nav.Link as={Link} to="/login" className={theme === 'dark' ? 'text-light' : 'text-dark'}>Login</Nav.Link>
+                                <Nav.Link as={Link} to="/register" className={theme === 'dark' ? 'text-light' : 'text-dark'}>Register</Nav.Link>
                             </Nav>
                         )}
                     </div>
