@@ -68,6 +68,10 @@ JavaScript - Core functionality
 
 - Dark mode support
 
+
+📄 Project Resources
+📂 Project Files: [OneDrive Link](https://1drv.ms/f/c/f8c5f3b87ef8a4f3/Eh4SCNDtlPpDoX1pkB77o9oBCQbw8ttBolRv3SEOvEzccQ?e=Bc1Flf)
+
 💡 Contributing
 
 Feel free to submit issues or open pull requests if you'd like to enhance this project!
