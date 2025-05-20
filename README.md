@@ -30,6 +30,7 @@ Start the Application
 
 bash
 npm run dev
+
 🛠 Tech Stack
 
 React.js
